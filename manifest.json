@@ -1,9 +1,9 @@
 {
-	"id": "obsidian-plugin",
-	"name": "My Plugin",
+	"id": "microquest",
+	"name": "MicroQuest",
 	"version": "1.0.0",
-	"minAppVersion": "1.0.0",
-	"description": "My Obsidian plugin",
+	"minAppVersion": "0.15.0",
+	"description": "AI-powered goal breakdown into micro-tasks via Claude API conversations",
 	"author": "",
 	"isDesktopOnly": false
 }
