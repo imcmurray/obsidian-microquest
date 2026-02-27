@@ -1,0 +1,23 @@
+{
+	"name": "obsidian-plugin",
+	"version": "1.0.0",
+	"description": "My Obsidian plugin",
+	"type": "module",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"version": "node version-bump.mjs && git add manifest.json versions.json"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^25.3.2",
+		"esbuild": "^0.27.3",
+		"typescript": "^5.9.3"
+	},
+	"dependencies": {
+		"obsidian": "^1.12.3"
+	}
+}
