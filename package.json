@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-plugin",
+	"name": "obsidian-microquest",
 	"version": "1.0.0",
-	"description": "My Obsidian plugin",
+	"description": "AI-powered goal breakdown into micro-tasks via Claude API conversations",
 	"type": "module",
 	"main": "main.js",
 	"scripts": {
@@ -9,9 +9,19 @@
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"obsidian",
+		"obsidian-plugin",
+		"task-management",
+		"ai",
+		"claude"
+	],
+	"author": "Ian McMurray",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/imcmurray/obsidian-microquest.git"
+	},
 	"devDependencies": {
 		"@types/node": "^25.3.2",
 		"esbuild": "^0.27.3",
