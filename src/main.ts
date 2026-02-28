@@ -4,7 +4,7 @@ import { DEFAULT_SETTINGS, VIEW_TYPE_TASK_TREE } from "./constants";
 import { GoalInputModal } from "./modals/goal-input-modal";
 import { ConversationModal } from "./modals/conversation-modal";
 import { TaskTreeView } from "./views/task-tree-view";
-import { generateNoteContent, buildNotePath } from "./utils/note-generator";
+import { generateNoteContent, buildNotePath, buildGoalFolderPath } from "./utils/note-generator";
 import { parseGoalNote } from "./utils/note-parser";
 import type { MicroQuestSettings } from "./types";
 
@@ -60,6 +60,12 @@ export default class MicroQuestPlugin extends Plugin {
 				}
 			}),
 		);
+
+		this.app.workspace.onLayoutReady(async () => {
+			await this.activateView();
+			const activeFile = this.app.workspace.getActiveFile();
+			this.refreshSidebar(activeFile);
+		});
 	}
 
 	onunload(): void {
@@ -107,6 +113,10 @@ export default class MicroQuestPlugin extends Plugin {
 		const folder = this.settings.noteFolder;
 		if (!this.app.vault.getAbstractFileByPath(folder)) {
 			await this.app.vault.createFolder(folder);
+		}
+		const goalFolder = buildGoalFolderPath(folder, result.metadata.goal || goal);
+		if (!this.app.vault.getAbstractFileByPath(goalFolder)) {
+			await this.app.vault.createFolder(goalFolder);
 		}
 
 		const file = await this.app.vault.create(notePath, content);

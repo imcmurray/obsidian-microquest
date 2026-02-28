@@ -41,6 +41,7 @@ function parseTasks(text: string): TaskNode[] {
 				id: phaseMatch[1],
 				title: phaseMatch[2].trim(),
 				completed: false,
+				flags: [],
 				children: [],
 			};
 			phases.push(currentPhase);
@@ -54,6 +55,7 @@ function parseTasks(text: string): TaskNode[] {
 				id: subTaskMatch[1],
 				title: subTaskMatch[2].trim(),
 				completed: false,
+				flags: [],
 				children: [],
 			};
 			currentPhase.children.push(currentSubTask);
@@ -68,6 +70,7 @@ function parseTasks(text: string): TaskNode[] {
 				id: microTaskMatch[2],
 				title: microTaskMatch[3].trim(),
 				completed: microTaskMatch[1] === "x",
+				flags: [],
 				children: [],
 			};
 			if (currentSubTask) {
