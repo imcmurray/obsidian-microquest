@@ -30,7 +30,7 @@ export class GoalInputModal extends Modal {
 			cls: "microquest-goal-textarea",
 			attr: {
 				placeholder:
-					"e.g., Build a personal portfolio website with blog...",
+					"e.g., build a personal portfolio website with blog...",
 				rows: "6",
 			},
 		});
@@ -39,7 +39,7 @@ export class GoalInputModal extends Modal {
 			cls: "microquest-goal-buttons",
 		});
 		const submitBtn = buttonContainer.createEl("button", {
-			text: "Start Planning",
+			text: "Start planning",
 			cls: "mod-cta",
 		});
 

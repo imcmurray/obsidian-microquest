@@ -61,19 +61,19 @@ export class ConversationModal extends Modal {
 		});
 
 		const skipBtn = buttonRow.createEl("button", {
-			text: "Skip Questions",
+			text: "Skip questions",
 		});
-		skipBtn.addEventListener("click", () => this.handleSkip());
+		skipBtn.addEventListener("click", () => void this.handleSkip());
 
 		this.sendBtn = buttonRow.createEl("button", {
 			text: "Send",
 			cls: "mod-cta",
 		});
-		this.sendBtn.addEventListener("click", () => this.handleSend());
+		this.sendBtn.addEventListener("click", () => void this.handleSend());
 
 		this.inputArea.addEventListener("keydown", (e: KeyboardEvent) => {
 			if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-				this.handleSend();
+				void this.handleSend();
 			}
 		});
 
@@ -135,7 +135,7 @@ export class ConversationModal extends Modal {
 		} catch (e) {
 			this.setLoading(false);
 			new Notice(
-				`MicroQuest: ${e instanceof Error ? e.message : "API error"}`,
+				`${e instanceof Error ? e.message : "API error"}`,
 			);
 		}
 	}
@@ -169,7 +169,7 @@ export class ConversationModal extends Modal {
 		} catch (e) {
 			this.setLoading(false);
 			new Notice(
-				`MicroQuest: ${e instanceof Error ? e.message : "Generation failed"}`,
+				`${e instanceof Error ? e.message : "Generation failed"}`,
 			);
 		}
 	}

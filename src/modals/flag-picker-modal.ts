@@ -21,11 +21,11 @@ export class FlagPickerModal extends Modal {
 		});
 	}
 
-	async onOpen(): Promise<void> {
+	onOpen(): void {
 		const { contentEl } = this;
 		contentEl.addClass("microquest-flag-picker");
 
-		contentEl.createEl("h3", { text: "Set Flags" });
+		contentEl.createEl("h3", { text: "Set flags" });
 
 		const categoriesEl = contentEl.createDiv({ cls: "microquest-flag-picker-categories" });
 
@@ -35,7 +35,7 @@ export class FlagPickerModal extends Modal {
 
 		const footer = contentEl.createDiv({ cls: "microquest-flag-picker-footer" });
 
-		const clearBtn = footer.createEl("button", { text: "Clear All" });
+		const clearBtn = footer.createEl("button", { text: "Clear all" });
 		clearBtn.addEventListener("click", () => {
 			this.currentFlags = [];
 			this.result = this.currentFlags;
@@ -73,7 +73,7 @@ export class FlagPickerModal extends Modal {
 		const toggle = container.createEl("input", {
 			type: "checkbox",
 			cls: "microquest-flag-picker-toggle",
-		}) as HTMLInputElement;
+		});
 		toggle.checked = !!existing;
 
 		toggle.addEventListener("change", () => {
@@ -124,7 +124,7 @@ export class FlagPickerModal extends Modal {
 			type: "text",
 			cls: "microquest-flag-picker-text-input",
 			attr: { placeholder: "Name..." },
-		}) as HTMLInputElement;
+		});
 		if (existing?.value) {
 			input.value = existing.value;
 		}

@@ -32,7 +32,7 @@ export class TaskTreeView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return "MicroQuest Tasks";
+		return "MicroQuest tasks";
 	}
 
 	getIcon(): string {
@@ -173,11 +173,11 @@ export class TaskTreeView extends ItemView {
 
 				const userMsg = entryEl.createDiv({ cls: "microquest-message microquest-message-user" });
 				const userContent = userMsg.createDiv({ cls: "microquest-message-content" });
-				MarkdownRenderer.render(this.app, entry.userMessage, userContent, sourcePath, this);
+				void MarkdownRenderer.render(this.app, entry.userMessage, userContent, sourcePath, this);
 
 				const assistantMsg = entryEl.createDiv({ cls: "microquest-message microquest-message-assistant" });
 				const assistantContent = assistantMsg.createDiv({ cls: "microquest-message-content" });
-				MarkdownRenderer.render(this.app, entry.assistantMessage, assistantContent, sourcePath, this);
+				void MarkdownRenderer.render(this.app, entry.assistantMessage, assistantContent, sourcePath, this);
 			}
 
 			header.addEventListener("click", () => {
@@ -228,9 +228,9 @@ export class TaskTreeView extends ItemView {
 		const file = this.app.vault.getAbstractFileByPath(parentGoalPath);
 		if (file instanceof TFile) {
 			const leaf = this.app.workspace.getLeaf();
-			leaf.openFile(file);
+			void leaf.openFile(file);
 		} else {
-			new Notice("MicroQuest: Parent goal note not found.");
+			new Notice("Parent goal note not found.");
 		}
 	}
 
@@ -312,7 +312,7 @@ export class TaskTreeView extends ItemView {
 				const checkbox = headerEl.createEl("input", {
 					type: "checkbox",
 					cls: "microquest-tree-checkbox task-list-item-checkbox",
-				}) as HTMLInputElement;
+				});
 				checkbox.checked = node.completed;
 
 				const label = headerEl.createSpan({
@@ -343,7 +343,7 @@ export class TaskTreeView extends ItemView {
 					} else {
 						label.removeClass("is-completed");
 					}
-					this.writeChangesToFile();
+					void this.writeChangesToFile();
 				});
 			}
 		}
@@ -383,7 +383,7 @@ export class TaskTreeView extends ItemView {
 		menu.addItem((item) => {
 			item.setTitle("Set flags...")
 				.setIcon("tag")
-				.onClick(() => this.openFlagPicker(node));
+				.onClick(() => void this.openFlagPicker(node));
 		});
 
 		menu.addSeparator();
@@ -396,7 +396,7 @@ export class TaskTreeView extends ItemView {
 					if (hasNote) {
 						this.openTaskNote(node);
 					} else {
-						this.createTaskNote(node);
+						void this.createTaskNote(node);
 					}
 				});
 		});
@@ -407,7 +407,7 @@ export class TaskTreeView extends ItemView {
 			menu.addItem((item) => {
 				item.setTitle("Break down with AI")
 					.setIcon("brain")
-					.onClick(() => this.breakDownTask(node));
+					.onClick(() => void this.breakDownTask(node));
 			});
 		}
 
@@ -439,9 +439,9 @@ export class TaskTreeView extends ItemView {
 
 	private syncFlagsToMetadataAndWrite(): void {
 		if (this.currentNote) {
-			this.writeChangesToFile();
+			void this.writeChangesToFile();
 		} else if (this.currentTaskNote) {
-			this.writeTaskNoteChangesToFile();
+			void this.writeTaskNoteChangesToFile();
 		}
 	}
 
@@ -515,15 +515,15 @@ export class TaskTreeView extends ItemView {
 		const file = this.app.vault.getAbstractFileByPath(path);
 		if (file instanceof TFile) {
 			const leaf = this.app.workspace.getLeaf();
-			leaf.openFile(file);
+			void leaf.openFile(file);
 		} else {
-			new Notice("MicroQuest: Task note not found.");
+			new Notice("Task note not found.");
 		}
 	}
 
 	private async breakDownTask(node: TaskNode): Promise<void> {
 		if (!this.plugin.settings.apiKey) {
-			new Notice("MicroQuest: Please set your API key in settings.");
+			new Notice("Please set your API key in settings.");
 			return;
 		}
 
@@ -575,7 +575,7 @@ export class TaskTreeView extends ItemView {
 
 	private chatAboutTask(node: TaskNode): void {
 		if (!this.plugin.settings.apiKey) {
-			new Notice("MicroQuest: Please set your API key in settings.");
+			new Notice("Please set your API key in settings.");
 			return;
 		}
 
@@ -608,7 +608,7 @@ export class TaskTreeView extends ItemView {
 
 	private suggestResources(node: TaskNode): void {
 		if (!this.plugin.settings.apiKey) {
-			new Notice("MicroQuest: Please set your API key in settings.");
+			new Notice("Please set your API key in settings.");
 			return;
 		}
 
@@ -637,7 +637,7 @@ export class TaskTreeView extends ItemView {
 		);
 
 		modal.open();
-		modal.triggerResourceSuggestion();
+		void modal.triggerResourceSuggestion();
 	}
 
 	private buildTaskHierarchy(targetNode: TaskNode): string {
@@ -709,10 +709,12 @@ export class TaskTreeView extends ItemView {
 		}
 	}
 
+	// eslint-disable-next-line @typescript-eslint/require-await
 	async onOpen(): Promise<void> {
 		this.render();
 	}
 
+	// eslint-disable-next-line @typescript-eslint/require-await
 	async onClose(): Promise<void> {
 		this.currentFile = null;
 		this.currentNote = null;

@@ -15,7 +15,7 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		containerEl.createEl("h2", { text: "MicroQuest Settings" });
+		new Setting(containerEl).setName("MicroQuest settings").setHeading();
 
 		new Setting(containerEl)
 			.setName("Anthropic API key")
@@ -78,7 +78,7 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 			.setName("Test API connection")
 			.setDesc("Verify your API key works.")
 			.addButton((btn) =>
-				btn.setButtonText("Test Connection").onClick(async () => {
+				btn.setButtonText("Test connection").onClick(async () => {
 					if (!this.plugin.settings.apiKey) {
 						new Notice("Please enter an API key first.");
 						return;
@@ -92,13 +92,13 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 							"Respond with exactly: OK",
 							[{ role: "user", content: "Test connection." }],
 						);
-						new Notice("MicroQuest: API connection successful!");
+						new Notice("API connection successful!");
 					} catch (e) {
 						new Notice(
-							`MicroQuest: Connection failed — ${e instanceof Error ? e.message : "Unknown error"}`,
+							`Connection failed — ${e instanceof Error ? e.message : "Unknown error"}`,
 						);
 					} finally {
-						btn.setButtonText("Test Connection");
+						btn.setButtonText("Test connection");
 						btn.setDisabled(false);
 					}
 				}),

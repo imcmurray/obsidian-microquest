@@ -52,7 +52,7 @@ export class TaskChatModal extends Modal {
 		this.parentFileName = parentFileName;
 	}
 
-	async onOpen(): Promise<void> {
+	onOpen(): void {
 		const { contentEl } = this;
 		contentEl.addClass("microquest-conversation");
 		contentEl.addClass("microquest-task-chat");
@@ -86,21 +86,21 @@ export class TaskChatModal extends Modal {
 		});
 
 		this.resourceBtn = buttonRow.createEl("button", {
-			text: "Suggest Resources",
+			text: "Suggest resources",
 		});
 		this.resourceBtn.addEventListener("click", () =>
-			this.triggerResourceSuggestion(),
+			void this.triggerResourceSuggestion(),
 		);
 
 		this.sendBtn = buttonRow.createEl("button", {
 			text: "Send",
 			cls: "mod-cta",
 		});
-		this.sendBtn.addEventListener("click", () => this.handleSend());
+		this.sendBtn.addEventListener("click", () => void this.handleSend());
 
 		this.inputArea.addEventListener("keydown", (e: KeyboardEvent) => {
 			if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-				this.handleSend();
+				void this.handleSend();
 			}
 		});
 	}
@@ -153,7 +153,7 @@ export class TaskChatModal extends Modal {
 		} catch (e) {
 			this.setLoading(false);
 			new Notice(
-				`MicroQuest: ${e instanceof Error ? e.message : "API error"}`,
+				`${e instanceof Error ? e.message : "API error"}`,
 			);
 		}
 	}
@@ -171,7 +171,7 @@ export class TaskChatModal extends Modal {
 			const pinBtn = bubble.createDiv({ cls: "microquest-pin-btn" });
 			setIcon(pinBtn, "pin");
 			pinBtn.setAttribute("aria-label", "Pin to task note");
-			pinBtn.addEventListener("click", () => this.pinMessage(content, pinBtn));
+			pinBtn.addEventListener("click", () => void this.pinMessage(content, pinBtn));
 		}
 
 		this.messagesContainer.scrollTop =
@@ -195,7 +195,7 @@ export class TaskChatModal extends Modal {
 		}
 
 		if (!userContent) {
-			new Notice("MicroQuest: Could not find the user message to pin.");
+			new Notice("Could not find the user message to pin.");
 			return;
 		}
 
@@ -213,11 +213,11 @@ export class TaskChatModal extends Modal {
 			pinBtn.empty();
 			setIcon(pinBtn, "check");
 			pinBtn.addClass("is-pinned");
-			new Notice("MicroQuest: Chat pinned to task note.");
+			new Notice("Chat pinned to task note.");
 			this.onNoteChange?.();
 		} catch (e) {
 			new Notice(
-				`MicroQuest: Failed to pin — ${e instanceof Error ? e.message : "unknown error"}`,
+				`Failed to pin — ${e instanceof Error ? e.message : "unknown error"}`,
 			);
 		}
 	}

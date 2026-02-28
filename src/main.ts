@@ -36,7 +36,7 @@ export default class MicroQuestPlugin extends Plugin {
 				const cache = this.app.metadataCache.getFileCache(file);
 				if (!cache?.frontmatter?.["goal"]) return false;
 				if (checking) return true;
-				this.regenerateBreakdown(file);
+				void this.regenerateBreakdown(file);
 				return true;
 			},
 		});
@@ -88,7 +88,7 @@ export default class MicroQuestPlugin extends Plugin {
 
 	private async createNewGoal(): Promise<void> {
 		if (!this.settings.apiKey) {
-			new Notice("MicroQuest: Please set your API key in settings.");
+			new Notice("Please set your API key in settings.");
 			return;
 		}
 
@@ -127,14 +127,14 @@ export default class MicroQuestPlugin extends Plugin {
 
 	private async regenerateBreakdown(file: TFile): Promise<void> {
 		if (!this.settings.apiKey) {
-			new Notice("MicroQuest: Please set your API key in settings.");
+			new Notice("Please set your API key in settings.");
 			return;
 		}
 
 		const content = await this.app.vault.read(file);
 		const note = parseGoalNote(content);
 		if (!note) {
-			new Notice("MicroQuest: Could not parse goal note.");
+			new Notice("Could not parse goal note.");
 			return;
 		}
 
@@ -148,14 +148,14 @@ export default class MicroQuestPlugin extends Plugin {
 
 		const newContent = generateNoteContent(result.metadata, result.phases);
 		await this.app.vault.modify(file, newContent);
-		new Notice("MicroQuest: Task breakdown regenerated.");
+		new Notice("Task breakdown regenerated.");
 	}
 
 	private async activateView(): Promise<void> {
 		const existing =
 			this.app.workspace.getLeavesOfType(VIEW_TYPE_TASK_TREE);
 		if (existing.length > 0) {
-			this.app.workspace.revealLeaf(existing[0]);
+			void this.app.workspace.revealLeaf(existing[0]);
 			return;
 		}
 
@@ -165,7 +165,7 @@ export default class MicroQuestPlugin extends Plugin {
 				type: VIEW_TYPE_TASK_TREE,
 				active: true,
 			});
-			this.app.workspace.revealLeaf(leaf);
+			void this.app.workspace.revealLeaf(leaf);
 		}
 	}
 
@@ -174,7 +174,7 @@ export default class MicroQuestPlugin extends Plugin {
 			this.app.workspace.getLeavesOfType(VIEW_TYPE_TASK_TREE);
 		for (const leaf of leaves) {
 			const view = leaf.view as TaskTreeView;
-			view.refresh(file);
+			void view.refresh(file);
 		}
 	}
 
