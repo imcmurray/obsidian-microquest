@@ -3,7 +3,7 @@
 	"name": "MicroQuest",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "AI-powered goal breakdown into micro-tasks via Claude API conversations",
+	"description": "AI-powered goal breakdown into micro-tasks via Claude API conversations.",
 	"author": "Ian McMurray",
 	"authorUrl": "https://github.com/imcmurray",
 	"isDesktopOnly": false
