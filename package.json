@@ -1,7 +1,7 @@
 {
 	"name": "obsidian-microquest",
 	"version": "1.0.0",
-	"description": "AI-powered goal breakdown into micro-tasks via Claude API conversations",
+	"description": "AI-powered goal breakdown into micro-tasks via Claude API conversations.",
 	"type": "module",
 	"main": "main.js",
 	"scripts": {
