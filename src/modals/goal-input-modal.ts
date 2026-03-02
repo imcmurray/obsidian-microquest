@@ -30,7 +30,7 @@ export class GoalInputModal extends Modal {
 			cls: "microquest-goal-textarea",
 			attr: {
 				placeholder:
-					"e.g., build a personal portfolio website with blog...",
+					"Build a personal portfolio website with blog...",
 				rows: "6",
 			},
 		});

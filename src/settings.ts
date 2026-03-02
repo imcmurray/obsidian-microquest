@@ -15,14 +15,12 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		new Setting(containerEl).setName("MicroQuest settings").setHeading();
-
 		new Setting(containerEl)
 			.setName("Anthropic API key")
-			.setDesc("Your Claude API key. Stored locally, never shared.")
+			.setDesc("Your Claude API key, stored locally.")
 			.addText((text) => {
 				text.inputEl.type = "password";
-				text.setPlaceholder("sk-ant-...")
+				text.setPlaceholder("Enter your API key")
 					.setValue(this.plugin.settings.apiKey)
 					.onChange(async (value) => {
 						this.plugin.settings.apiKey = value;
@@ -32,7 +30,7 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Model")
-			.setDesc("Which Claude model to use for task generation.")
+			.setDesc("Claude model to use for task generation.")
 			.addDropdown((dropdown) => {
 				for (const model of AVAILABLE_MODELS) {
 					dropdown.addOption(model, model);
@@ -48,7 +46,7 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 		new Setting(containerEl)
 			.setName("Max planning questions")
 			.setDesc(
-				"Maximum number of clarifying questions Claude will ask (1-20).",
+				"Maximum clarifying questions Claude will ask (1-20).",
 			)
 			.addSlider((slider) =>
 				slider
@@ -66,7 +64,7 @@ export class MicroQuestSettingTab extends PluginSettingTab {
 			.setDesc("Folder where goal notes will be created.")
 			.addText((text) =>
 				text
-					.setPlaceholder("MicroQuest Goals")
+					.setPlaceholder("MicroQuest goals")
 					.setValue(this.plugin.settings.noteFolder)
 					.onChange(async (value) => {
 						this.plugin.settings.noteFolder = value;

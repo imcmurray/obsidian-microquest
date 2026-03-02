@@ -136,7 +136,7 @@ export class TaskTreeView extends ItemView {
 		const backLink = container.createDiv({ cls: "microquest-back-link" });
 		const backAnchor = backLink.createEl("a", {
 			cls: "microquest-back-anchor",
-			text: "\u2190 Back to goal",
+			text: "\u2190 back to goal",
 		});
 		backAnchor.addEventListener("click", () => {
 			this.navigateToParentGoal(metadata.parentGoal);
@@ -709,12 +709,10 @@ export class TaskTreeView extends ItemView {
 		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/require-await
 	async onOpen(): Promise<void> {
 		this.render();
 	}
 
-	// eslint-disable-next-line @typescript-eslint/require-await
 	async onClose(): Promise<void> {
 		this.currentFile = null;
 		this.currentNote = null;
